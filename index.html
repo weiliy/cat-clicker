@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>cat clicker</title>
+</head>
+<body>
+  <img id='my-elem' src="https://lh3.ggpht.com/nlI91wYNCrjjNy5f-S3CmVehIBM4cprx-JFWOztLk7vFlhYuFR6YnxcT446AvxYg4Ab7M1Fy0twaOCWYcUk=s0#w=640&h=426" alt="cat">
+  <p>Click Number: <span id='click-num'>0</span></p>
+  <script>
+    var elem = document.getElementById('my-elem');
+    var counter = 0;
+    elem.addEventListener('click', function(){
+      counter++;
+      var clickNum = document.getElementById('click-num');
+      clickNum.innerHTML = counter; 
+    }, false);
+  </script>
+</body>
+</html>
