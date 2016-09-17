@@ -5,16 +5,46 @@
   <title>cat clicker</title>
 </head>
 <body>
-  <img id='my-elem' src="https://lh3.ggpht.com/nlI91wYNCrjjNy5f-S3CmVehIBM4cprx-JFWOztLk7vFlhYuFR6YnxcT446AvxYg4Ab7M1Fy0twaOCWYcUk=s0#w=640&h=426" alt="cat">
-  <p>Click Number: <span id='click-num'>0</span></p>
+  <head>
+    <h1>Cat Clicker (<span id='click-num'>0</span>)</h1>
+  </head>
+  <main id="cat-list">
+  </main>
   <script>
-    var elem = document.getElementById('my-elem');
+    var cats = [
+    {
+      name: 'poplinre',
+      src: 'https://lh3.ggpht.com/nlI91wYNCrjjNy5f-S3CmVehIBM4cprx-JFWOztLk7vFlhYuFR6YnxcT446AvxYg4Ab7M1Fy0twaOCWYcUk=s0#w=640&h=426'
+    },
+    {
+      name: 'chewie',
+      src: 'https://lh3.ggpht.com/kixazxoJ2ufl3ACj2I85Xsy-Rfog97BM75ZiLaX02KgeYramAEqlEHqPC3rKqdQj4C1VFnXXryadFs1J9A=s0#w=640&h=496'
+    }
+    ]
+
+    var catList = document.getElementById('cat-list');
+    console.log(catList);
+    for ( var i = 0; i < cats.length; i++) { 
+      var figcaption = document.createElement('figcaption');
+      figcaption.innerText = cats[i].name;
+      var figure = document.createElement('figure');
+      var img = document.createElement('img');
+      img.setAttribute('src', cats[i].src);
+      img.classList.add('cat-img');
+      figure.appendChild(figcaption);
+      figure.appendChild(img);
+      catList.appendChild(figure);
+    }; 
+    var catImgs = document.getElementsByClassName('cat-img');
     var counter = 0;
-    elem.addEventListener('click', function(){
+    var catClicker = function(){
       counter++;
       var clickNum = document.getElementById('click-num');
       clickNum.innerHTML = counter; 
-    }, false);
+    };
+    for (var i = 0; i < catImgs.length; i++) {
+      catImgs[i].addEventListener('click', catClicker, false);
+    };
   </script>
 </body>
 </html>
