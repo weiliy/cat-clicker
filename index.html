@@ -3,94 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <title>cat clicker</title>
-  <style>
-    .cat-fig {
-      display: none;
-    }
-    .cat-fig:first-child {
-      display: block;
-    }
-  </style>
 </head>
 <body>
   <head>
-    <h1>Cat Clicker (<span id='click-num'>0</span>)</h1>
+    <h1>Cat Clicker</h1>
     <nav>
-      <ul id='cat-name-list'></ul>
+      <ul id="cat-name-list">
+      <script type="text/template" data-template="cat-name">
+        <li class="cat-name" id="{{catName}}">{{catName}}</li>
+      </script>
+      </ul>
     </nav>
   </head>
   <main id="cat-list">
+  <div id="cat-show-name"></div>
+  <img id="cat-show-img"/>
+  <div id="cat-show-click-num"></div>
   </main>
-  <script>
-    var cats = [
-    {
-      name: 'poplinre',
-      src: 'https://lh3.ggpht.com/nlI91wYNCrjjNy5f-S3CmVehIBM4cprx-JFWOztLk7vFlhYuFR6YnxcT446AvxYg4Ab7M1Fy0twaOCWYcUk=s0#w=640&h=426'
-    },
-    {
-      name: 'chewie',
-      src: 'https://lh3.ggpht.com/kixazxoJ2ufl3ACj2I85Xsy-Rfog97BM75ZiLaX02KgeYramAEqlEHqPC3rKqdQj4C1VFnXXryadFs1J9A=s0#w=640&h=496'
-    },
-    {
-      name: 'yellow and gray',
-      src: 'https://lh5.ggpht.com/LfjkdmOKkGLvCt-VuRlWGjAjXqTBrPjRsokTNKBtCh8IFPRetGaXIpTQGE2e7ZCUaG2azKNkz38KkbM_emA=s0#w=640&h=454'
-    },
-    {
-      name: 'whitle',
-      src: 'https://c7.staticflickr.com/6/5213/5508784414_d2d84f9c92_b.jpg'
-    },
-    {
-      name: 'black',
-      src: 'https://c5.staticflickr.com/6/5141/5616147572_197d15f94d_b.jpg'
-    }
-    ]
-
-    // Cat Name List
-    var catNameList = document.getElementById('cat-name-list');
-    var catNameLi;
-    for ( var i = 0; i < cats.length; i++) {
-      catNameLi = document.createElement('li');
-      catNameLi.innerText = cats[i].name;
-      catNameLi.addEventListener('click', (function(catId){
-        return function(){
-          var catX = document.getElementById(catId);
-          var catParent = catX.parentNode;
-          var firstCat = catParent.firstChild;
-          catParent.insertBefore(catX, firstCat);
-        };
-      })('cat-' + i), false);
-      catNameList.appendChild(catNameLi);
-    };
-
-    // Main Area
-    var catList = document.getElementById('cat-list');
-    for ( var i = 0; i < cats.length; i++) { 
-      var figcaption = document.createElement('figcaption');
-      var clickSpan = document.createElement('span')
-      clickSpan.id = 'cat-click-' + i;
-      clickSpan.innerText = '( click: 0 )'
-      figcaption.innerText = cats[i].name;
-      figcaption.appendChild(clickSpan);
-      var figure = document.createElement('figure');
-      var img = document.createElement('img');
-      img.setAttribute('src', cats[i].src);
-      img.classList.add('cat-img');
-      figure.appendChild(figcaption);
-      figure.appendChild(img);
-      figure.id = 'cat-' + i;
-      figure.classList.add('cat-fig');
-      catList.appendChild(figure);
-    }; 
-    var catImgs = document.getElementsByClassName('cat-img');
-    for (var i = 0; i < catImgs.length; i++) {
-      catImgs[i].addEventListener('click', (function(counter, i){ 
-        return function(){
-          counter++;
-          var catClickX = document.getElementById('cat-click-' + i);
-          catClickX.innerHTML = '( click: ' + counter + ' )'; 
-        };
-      })(0, i), false);
-    };
-  </script>
+  <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
