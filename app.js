@@ -27,7 +27,8 @@ var data = {
     count: 0
   }
   ],
-  currentCat: 0
+  currentCat: 0,
+  admin: false
 };
 
 // Octopus
@@ -35,6 +36,7 @@ var octopus = {
   getCatNameList: function() {
                     return data.cats;
                   },
+
   getCatByName: function(catName) { 
                    var catNameList = this.getCatNameList();
                    for ( var i = 0; i < catNameList.length; i++) {
@@ -43,23 +45,47 @@ var octopus = {
                      }
                    }
                  },
+
   getShowCat: function() {
                 return data.cats[data.currentCat];
               },
+
   setCatId: function(catId) {
               data.currentCat = catId;
             },
+ 
   showCatByName: function(catName) {
                    this.setCatId( this.getCatByName(catName) ) ;
                    catShow.render();
                  },
+  
   click: function() {
            data.cats[data.currentCat].count++;
            catShow.render();
          },
+
+  getAdminMod: function(){
+                 return data.admin;
+               },
+
+  setAdminMod: function(isOn){
+                  data.admin = isOn;
+                },
+
+  updateCurrentCat: function(name, url, clicks){
+                      data.cats[data.currentCat] = {
+                        name: name,
+                        src: url,
+                        count: clicks
+                      }
+                    },
+
   init: function() {
+          this.setAdminMod(false);
+
           catNameList.init();
           catShow.init();
+          adminView.init();
         }
 };
 
@@ -112,4 +138,50 @@ var catShow = {
           }
 };
 
+// Admin View 
+var adminView = {
+  init: function() {
+          this.$adminBtn = $('.admin-btn');
+          this.$adminEdit = $('.admin-edit');
+          this.$editName = $('#edit-name');
+          this.$editImgSrc = $('#edit-img-src');
+          this.$editClickNum = $('#edit-click-num');
+
+          this.$adminBtn.on('click', function(e){
+            octopus.setAdminMod(true);
+            adminView.render();
+          });
+
+          $('.admin-cancel-btn').on('click', function(e){
+            octopus.setAdminMod(false);
+            adminView.render();
+          });
+
+          $('.admin-save-btn').on('click', function(e){
+            octopus.updateCurrentCat($('#edit-name').val(), $('#edit-img-src').val(), $('#edit-click-num').val());
+            octopus.setAdminMod(false);
+            adminView.render();
+            catShow.render();
+          });
+
+          this.render();
+        },
+
+  render: function() {
+            if ( octopus.getAdminMod() ) {
+              this.$adminBtn.hide();
+              var cat = octopus.getShowCat()
+
+              this.$editName.val(cat.name);
+              this.$editImgSrc.val(cat.src);
+              this.$editClickNum.val(cat.count);
+
+              this.$adminEdit.show();
+            } else {
+              this.$adminBtn.show();
+              this.$adminEdit.hide();
+            }
+            
+          }
+}
 octopus.init();
