@@ -93,13 +93,16 @@ var catShow = {
           $('#cat-show-img').on('click', function(e){
             octopus.click()
           });
+          this.$catShowImg = $('#cat-show-img');
+          this.$catShowName = $('#cat-show-name');
+          this.$catShowClickNum = $('#cat-show-click-num');
           this.render();
         },
   render: function() {
             var cat = octopus.getShowCat();
-            var $catShowImg = $('#cat-show-img');
-            var $catShowName = $('#cat-show-name');
-            var $catShowClickNum = $('#cat-show-click-num');
+            var $catShowImg = this.$catShowImg;
+            var $catShowName = this.$catShowName;
+            var $catShowClickNum = this.$catShowClickNum;
 
             $catShowImg.bind('load', function(){
               $catShowName.html(cat.name);
